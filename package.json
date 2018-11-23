@@ -2,9 +2,10 @@
   "name": "react-controlled-dialog",
   "version": "1.0.0",
   "description": "A declarative interface for the native dialog element",
-  "main": "build/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,11 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
-    "parcel": "^1.10.3"
+    "babel-loader": "^8.0.4",
+    "parcel": "^1.10.3",
+    "path": "^0.12.7",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "react": "^16.7.0-alpha.0",
