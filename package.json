@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-dialog",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "A declarative interface for the native dialog element",
   "main": "./lib/ReactControlledDialog.js",
   "scripts": {
