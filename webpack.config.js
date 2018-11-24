@@ -1,37 +1,18 @@
 var webpack = require("webpack");
 var path = require("path");
 
-var reactExternal = {
-  root: "React",
-  commonjs2: "react",
-  commonjs: "react",
-  amd: "react"
-};
-var reactDOMExternal = {
-  root: "ReactDOM",
-  commonjs2: "react-dom",
-  commonjs: "react-dom",
-  amd: "react-dom"
-};
-
 module.exports = {
   entry: {
-    "react-controlled-dialog": "./src/index.js",
-    "react-controlled-dialog.min": "./src/index.js"
+    "react-controlled-dialog": "./src/index.js"
   },
 
   externals: {
-    react: reactExternal,
-    "react-dom": reactDOMExternal
+    react: "commonjs react"
   },
 
   output: {
-    filename: "[name].js",
-    chunkFilename: "[id].chunk.js",
-    path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
-    libraryTarget: "umd",
-    library: "ReactControlledDialog"
+    filename: "index.js",
+    libraryTarget: "commonjs2"
   },
 
   optimization: {

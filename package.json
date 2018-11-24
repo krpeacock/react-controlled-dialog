@@ -2,8 +2,7 @@
   "name": "react-controlled-dialog",
   "version": "1.0.4",
   "description": "A declarative interface for the native dialog element",
-  "main": "./lib/index.js",
-  "module": "./lib/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
@@ -35,8 +34,7 @@
     "webpack-cli": "^3.1.2"
   },
   "peerDependencies": {
-    "react": "^16.7.0-alpha.0",
-    "react-dom": "^16.7.0-alpha.0"
+    "react": "^16.7.0-alpha.0"
   },
   "dependencies": {
     "react": "^16.7.0-alpha.0",
