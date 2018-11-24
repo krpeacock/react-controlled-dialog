@@ -11,6 +11,7 @@ module.exports = {
   },
 
   output: {
+    path: path.resolve("lib"),
     filename: "ReactControlledDialog.js",
     libraryTarget: "commonjs2"
   },
