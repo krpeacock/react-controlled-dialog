@@ -11,7 +11,7 @@ module.exports = {
   },
 
   output: {
-    filename: "index.js",
+    filename: "ReactControlledDialog.js",
     libraryTarget: "commonjs2"
   },
 
