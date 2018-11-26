@@ -1,23 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const defaultCloseButton = ({ onClick }) => {
   return (
     <button onClick={onClick} aria-label="Close">
-      <svg
-        aria-hidden="true"
-        data-prefix="far"
-        data-icon="times"
-        className="svg-inline--fa fa-times fa-w-10"
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 320 512"
-      >
-        <path
-          fill="currentColor"
-          d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z"
-        />
-      </svg>
+      x
     </button>
   );
 };
@@ -26,18 +13,43 @@ const BaseDialog = React.forwardRef((props, ref) => (
   <dialog ref={ref} {...props} />
 ));
 
+function isMouseEventInClientArea(event) {
+  var element = event.currentTarget;
+  var rect = element.getBoundingClientRect();
+  var minX = rect.left + element.clientLeft;
+  var x = event.clientX;
+  if (x < minX || x >= minX + element.clientWidth) return false;
+  var minY = rect.top + element.clientTop;
+  var y = event.clientY;
+  if (y < minY || y >= minY + element.clientHeight) return false;
+  return true;
+}
+
 const Dialog = ({
   children,
   isOpen,
   setOpen,
   type = "dialog",
   CloseButton = defaultCloseButton,
-  DialogComponent = BaseDialog
+  DialogComponent = BaseDialog,
+  closeOnBackdropClick = false,
+  onClick
 }) => {
   const ref = React.createRef();
+  let [init, setInit] = useState(false);
 
   useEffect(() => {
-    let dialog = ref.current || {};
+    if (!init) {
+      // Register the dialog with dialog-polyfill once, if available
+      if (window.dialogPolyfill) {
+        window.dialogPolyfill.registerDialog(ref);
+      }
+      setInit(true);
+    }
+  });
+  let dialog;
+  useEffect(() => {
+    dialog = ref.current || {};
     if (isOpen && !dialog.open) {
       if (type === "modal") {
         return dialog.showModal();
@@ -48,8 +60,23 @@ const Dialog = ({
     }
   });
 
+  const handleBackdropClick = event => {
+    if (closeOnBackdropClick) {
+      if (!isMouseEventInClientArea(event)) {
+        dialog.close();
+      }
+    }
+  };
+
   return (
-    <DialogComponent ref={ref} role={type}>
+    <DialogComponent
+      ref={ref}
+      role={type}
+      onClick={event => {
+        if (onClick) onClick(event);
+        handleBackdropClick(event);
+      }}
+    >
       <CloseButton onClick={() => setOpen(false)} aria-label="Close" />
       {children}
     </DialogComponent>
@@ -65,7 +92,9 @@ Dialog.propTypes = {
   setOpen: PropTypes.func.isRequired,
   type: PropTypes.oneOf(["dialog", "modal"]),
   closeButton: PropTypes.node,
-  DialogComponent: PropTypes.node
+  DialogComponent: PropTypes.node,
+  closeOnBackdropClick: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 export default Dialog;
