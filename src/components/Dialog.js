@@ -61,9 +61,16 @@ const Dialog = ({
   });
 
   const handleBackdropClick = event => {
-    if (closeOnBackdropClick) {
+    function decideToClose() {
       if (!isMouseEventInClientArea(event)) {
         dialog.close();
+      }
+    }
+    if (typeof closeOnBackdropClick === "function") {
+      if (closeOnBackdropClick()) {
+        decideToClose();
+      } else if (closeOnBackdropClick) {
+        decideToClose();
       }
     }
   };
@@ -93,7 +100,7 @@ Dialog.propTypes = {
   type: PropTypes.oneOf(["dialog", "modal"]),
   closeButton: PropTypes.node,
   DialogComponent: PropTypes.node,
-  closeOnBackdropClick: PropTypes.bool,
+  closeOnBackdropClick: PropTypes.bool || PropTypes.func,
   onClick: PropTypes.func
 };
 
