@@ -91,16 +91,16 @@ const Dialog = ({
 };
 
 Dialog.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
-  isOpen: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
   type: PropTypes.oneOf(["dialog", "modal"]),
-  closeButton: PropTypes.node,
-  DialogComponent: PropTypes.node,
   closeOnBackdropClick: PropTypes.bool || PropTypes.func,
+  DialogComponent: PropTypes.node,
+  closeButton: PropTypes.node,
   onClick: PropTypes.func
 };
 
