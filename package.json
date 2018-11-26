@@ -5,6 +5,8 @@
   "main": "./lib/ReactControlledDialog.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build-examples": "parcel build examples/index.html",
+    "start": "parcel examples/index.html",
     "build": "webpack"
   },
   "repository": {
