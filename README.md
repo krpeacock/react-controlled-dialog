@@ -21,7 +21,7 @@ yarn add react-controlled-dialog
 Then, include the component in your codebase
 
 ```javascript
-import Dialog from "react-controlled dialog";
+import Dialog from "react-controlled-dialog";
 ```
 
 ### Examples
