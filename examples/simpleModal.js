@@ -8,12 +8,7 @@ const SimpleModal = () => {
       <h2>Simple Modal</h2>
       <p>Click below to open!</p>
       <button onClick={() => setOpen(true)}>Simple Modal</button>
-      <Dialog
-        isOpen={isOpen}
-        setOpen={setOpen}
-        type="modal"
-        closeOnBackdropClick
-      >
+      <Dialog isOpen={isOpen} setOpen={setOpen} type="modal">
         foobar
       </Dialog>
     </div>

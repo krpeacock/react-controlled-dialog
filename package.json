@@ -4,7 +4,7 @@
   "description": "A declarative interface for the native dialog element",
   "main": "./lib/ReactControlledDialog.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build-examples": "parcel build examples/index.html",
     "start": "parcel examples/index.html",
     "build": "webpack --mode production"
@@ -31,11 +31,19 @@
     "@babel/plugin-transform-react-jsx": "^7.1.6",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "check-prop-types": "^1.1.2",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "jest": "^23.6.0",
+    "jsdom": "13.0.0",
+    "jsdom-global": "3.0.2",
     "parcel": "^1.10.3",
     "path": "^0.12.7",
     "webpack": "^4.26.0",
@@ -45,7 +53,8 @@
     "react": "^16.7.0-alpha.0"
   },
   "dependencies": {
-    "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0",
+    "styled-components": "^4.1.1"
   }
 }

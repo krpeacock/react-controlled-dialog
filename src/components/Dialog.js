@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import PropTypes, {
+  oneOf,
+  oneOfType,
+  bool,
+  func,
+  node,
+  component,
+  arrayOf,
+  object
+} from "prop-types";
 
 const defaultCloseButton = ({ onClick }) => {
   return (
@@ -64,15 +73,15 @@ const Dialog = ({
     function decideToClose() {
       if (!isMouseEventInClientArea(event)) {
         dialog.close();
+        return true;
       }
+      return false;
     }
-    if (typeof closeOnBackdropClick === "function") {
-      if (closeOnBackdropClick()) {
-        decideToClose();
-      } else if (closeOnBackdropClick) {
-        decideToClose();
-      }
-    }
+    let closeEnabled =
+      typeof closeOnBackdropClick === "function"
+        ? closeOnBackdropClick()
+        : closeOnBackdropClick;
+    if (closeEnabled) decideToClose();
   };
 
   return (
@@ -80,7 +89,9 @@ const Dialog = ({
       ref={ref}
       role={type}
       onClick={event => {
-        if (onClick) onClick(event);
+        if (onClick) {
+          onClick();
+        }
         handleBackdropClick(event);
       }}
     >
@@ -91,17 +102,18 @@ const Dialog = ({
 };
 
 Dialog.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+  isOpen: bool.isRequired,
+  setOpen: func.isRequired,
+  children: oneOfType([arrayOf(node), node]),
+  type: oneOf(["dialog", "modal"]),
+  closeOnBackdropClick: bool || func,
+  DialogComponent: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+    PropTypes.object
   ]),
-  type: PropTypes.oneOf(["dialog", "modal"]),
-  closeOnBackdropClick: PropTypes.bool || PropTypes.func,
-  DialogComponent: PropTypes.node,
-  closeButton: PropTypes.node,
-  onClick: PropTypes.func
+  closeButton: node,
+  onClick: func
 };
 
 export default Dialog;
