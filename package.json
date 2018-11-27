@@ -50,14 +50,14 @@
     "parcel": "^1.10.3",
     "path": "^0.12.7",
     "webpack": "^4.26.0",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "react-dom": "^16.7.0-alpha.0",
+    "styled-components": "^4.1.1"
   },
   "peerDependencies": {
     "react": "^16.7.0-alpha.0"
   },
   "dependencies": {
-    "react": "^16.7.0-alpha.0",
-    "react-dom": "^16.7.0-alpha.0",
-    "styled-components": "^4.1.1"
+    "react": "^16.7.0-alpha.0"
   }
 }
