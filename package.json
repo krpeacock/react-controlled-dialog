@@ -7,7 +7,10 @@
     "test": "jest",
     "build-examples": "parcel build examples/index.html",
     "start": "parcel examples/index.html",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "repository": {
     "type": "git",
