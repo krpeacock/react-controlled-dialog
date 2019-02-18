@@ -12,6 +12,7 @@ const StyledModal = styled.dialog`
   &::backdrop,
   &.backdrop {
     background-color: rgba(0, 0, 0, 0.65);
+    cursor: pointer;
   }
   button[aria-label="Close"] {
     position: absolute;

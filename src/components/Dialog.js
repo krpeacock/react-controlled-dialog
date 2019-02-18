@@ -5,9 +5,7 @@ import PropTypes, {
   bool,
   func,
   node,
-  component,
-  arrayOf,
-  object
+  arrayOf
 } from "prop-types";
 
 const defaultCloseButton = ({ onClick }) => {
@@ -42,11 +40,12 @@ const Dialog = ({
   CloseButton = defaultCloseButton,
   DialogComponent = BaseDialog,
   closeOnBackdropClick = false,
-  onClick
+  onClick,
+  ...props
 }) => {
   const ref = React.createRef();
-  let [init, setInit] = useState(false);
-
+  const [init, setInit] = useState(false);
+  const [dialog, setDialog] = useState({});
   useEffect(() => {
     if (!init) {
       // Register the dialog with dialog-polyfill once, if available
@@ -55,10 +54,8 @@ const Dialog = ({
       }
       setInit(true);
     }
-  });
-  let dialog;
-  useEffect(() => {
-    dialog = ref.current || {};
+    if (ref.current && !(dialog instanceof HTMLElement))
+      return setDialog(ref.current);
     if (isOpen && !dialog.open) {
       if (type === "modal") {
         return dialog.showModal();
@@ -94,6 +91,7 @@ const Dialog = ({
         }
         handleBackdropClick(event);
       }}
+      {...props}
     >
       <CloseButton onClick={() => setOpen(false)} aria-label="Close" />
       {children}
