@@ -24,13 +24,19 @@ Then, include the component in your codebase
 import Dialog from "react-controlled-dialog";
 ```
 
+### Usage
+
+This component is designed to not be in control of its own status. It requires its parent to tell it when to open, and it requires a callback for updating the state to be controlled. The idea is to have a declarative relationship from the parent element to the dialog, similar to a controlled input.
+
+The dialog can be opened as either a dialog (which is default), or as a modal, by specifying a `type` of "modal" or "dialog".
+
 ### Examples
 
 A simple dialog:
 
 ```javascript
 import React, { useState } from "react";
-import Dialog from "../lib/ReactControlledDialog";
+import Dialog from "react-controlled-dialog";
 
 const Simple = () => {
   const [isOpen, setOpen] = useState(false);
@@ -52,7 +58,6 @@ const Simple = () => {
 };
 ```
 
-The dialog can be opened as either a dialog (which is default), or as a modal, by specifying a `type` of "modal" or "dialog".
 
 ### Settings
 
