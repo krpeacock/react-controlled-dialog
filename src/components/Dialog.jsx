@@ -70,6 +70,7 @@ const Dialog = ({
     function decideToClose() {
       if (!isMouseEventInClientArea(event)) {
         dialog.close();
+        setOpen(false);
         return true;
       }
       return false;

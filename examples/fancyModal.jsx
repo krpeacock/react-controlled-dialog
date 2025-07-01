@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dialog from "../lib/ReactControlledDialog";
+import Dialog from "../src/components/Dialog";
 import styled from "styled-components";
 import close from "./close.svg";
 
