@@ -1,13 +1,6 @@
 import React from "react";
 import Dialog from "../src/components/Dialog";
-import { configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement
-} from "react-testing-library";
+import { render, cleanup } from "@testing-library/react";
 
 const show = jest.fn();
 const showModal = jest.fn();
@@ -19,24 +12,23 @@ beforeEach(() => {
   HTMLDialogElement.prototype.showModal = showModal;
   HTMLDialogElement.prototype.show = show;
 });
+
 afterEach(() => {
   HTMLDialogElement.prototype.showModal = defaultShowModal;
   HTMLDialogElement.prototype.show = defaultShow;
   cleanup();
 });
 
-configure({ adapter: new Adapter() });
-
 describe("Dialog tests", () => {
   it("should run without crashing", () => {
-    // TODO - replace with shallow once Enzyme supports hooks
     const { container } = render(<Dialog isOpen={false} setOpen={() => {}} />);
     expect(container.querySelector("dialog")).toBeTruthy();
     expect(container).toMatchSnapshot();
   });
+  
   it("should accept a custom Dialog component", () => {
     const CustomDialog = React.forwardRef((props, ref) => (
-      <dialog id="custom" />
+      <dialog id="custom" ref={ref} {...props} />
     ));
 
     const { container } = render(
@@ -48,16 +40,18 @@ describe("Dialog tests", () => {
     );
     expect(container.querySelector("#custom")).toBeTruthy();
   });
+  
   it("should open the dialog as a dialog if type is not provided", () => {
-    const { container } = render(<Dialog isOpen={true} setOpen={jest.fn()} />);
-    expect(HTMLDialogElement.prototype.showModal).toBeCalledTimes(0);
-    expect(HTMLDialogElement.prototype.show).toBeCalled();
+    render(<Dialog isOpen={true} setOpen={jest.fn()} />);
+    expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalledTimes(0);
+    expect(HTMLDialogElement.prototype.show).toHaveBeenCalled();
   });
+  
   it("should open the dialog as a modal if type is modal", () => {
-    const { container } = render(
+    render(
       <Dialog isOpen={true} setOpen={jest.fn()} type="modal" />
     );
-    expect(HTMLDialogElement.prototype.showModal).toBeCalled();
-    expect(HTMLDialogElement.prototype.show).toBeCalledTimes(0);
+    expect(HTMLDialogElement.prototype.showModal).toHaveBeenCalled();
+    expect(HTMLDialogElement.prototype.show).toHaveBeenCalledTimes(0);
   });
 });
